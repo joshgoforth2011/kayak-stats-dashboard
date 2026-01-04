@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kayak Stats Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">🧍‍♂️</div>
+    <h1>Kayak Stats</h1>
+  </div>
+
+  <nav>
+    <a class="active" href="index.html">Home</a>
+    <a href="#" onclick="return false;">Events</a>
+    <a href="#" onclick="return false;">Anglers</a>
+    <a href="#" onclick="return false;">Admin</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h2 class="title">Kayak Stats Dashboard</h2>
+  <p class="subtitle">Tournament Performance &amp; Analytics</p>
+
+  <section class="kpis">
+    <div class="card">
+      <div class="card-top">
+        <span>Total Events</span>
+        <div class="icon icon-blue">📅</div>
+      </div>
+      <h3 id="kpiTotalEvents">0</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span>Total Anglers</span>
+        <div class="icon icon-green">👥</div>
+      </div>
+      <h3 id="kpiTotalAnglers">0</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span>Avg Season Total</span>
+        <div class="icon icon-purple">📏</div>
+      </div>
+      <h3 id="kpiAvgWinnerTotal">0"</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span>Avg Big Bass</span>
+        <div class="icon icon-gold">🐟</div>
+      </div>
+      <h3 id="kpiAvgBigBass">0"</h3>
+    </div>
+  </section>
+
+  <section class="table-card">
+    <div class="table-header">
+      <h3 id="tableTitle">Latest Events</h3>
+      <div class="controls">
+        <label>
+          Season:
+          <select id="seasonFilter"></select>
+        </label>
+
+        <label>
+          Trail:
+          <select id="trailFilter"></select>
+        </label>
+
+        <label class="search">
+          Search:
+          <input id="searchBox" placeholder="event, trail, season..." />
+        </label>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Date</th>
+          <th>Trail</th>
+          <th>Winner</th>
+          <th>Total Length</th>
+          <th>Big Bass</th>
+          <th>Anglers</th>
+        </tr>
+      </thead>
+      <tbody id="eventsTable"></tbody>
+    </table>
+
+    <p class="note">
+      Winner / Total / Big Bass are computed from <strong>Angler_Wide</strong> by <code>event_id</code>.
+      Click a row to open Event Details.
+    </p>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

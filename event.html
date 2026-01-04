@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Event Details • Kayak Stats</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">🧍‍♂️</div>
+    <h1><a href="index.html" style="text-decoration:none;color:#2563eb;">Kayak Stats</a></h1>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a class="active" href="event.html" onclick="return false;">Event Details</a>
+    <a href="#" onclick="return false;">Anglers</a>
+    <a href="#" onclick="return false;">Admin</a>
+  </nav>
+</header>
+
+<main class="container">
+  <div class="crumbs">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <span id="crumbEvent">Event</span>
+  </div>
+
+  <div class="event-head">
+    <div>
+      <h2 class="title-left" id="eventTitle">Event</h2>
+      <p class="subtitle-left" id="eventMeta">Loading...</p>
+    </div>
+    <div class="event-actions">
+      <a id="eventSourceLink" class="btn" href="#" target="_blank" rel="noopener noreferrer" style="display:none;">
+        Open Source
+      </a>
+      <a class="btn btn-ghost" href="index.html">← Back</a>
+    </div>
+  </div>
+
+  <section class="kpis">
+    <div class="card">
+      <div class="card-top">
+        <span>Winner</span>
+        <div class="icon icon-blue">🏆</div>
+      </div>
+      <h3 id="kpiWinner">—</h3>
+      <div class="mini" id="kpiWinnerSub"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span>Anglers</span>
+        <div class="icon icon-green">👥</div>
+      </div>
+      <h3 id="kpiAnglers">0</h3>
+      <div class="mini" id="kpiFishLimit"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span>Winning Total</span>
+        <div class="icon icon-purple">📏</div>
+      </div>
+      <h3 id="kpiWinningTotal">—</h3>
+      <div class="mini" id="kpiAvgTotal"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span>Big Bass</span>
+        <div class="icon icon-gold">🐟</div>
+      </div>
+      <h3 id="kpiBigBass">—</h3>
+      <div class="mini" id="kpiBigBassSub"></div>
+    </div>
+  </section>
+
+  <section class="table-card">
+    <div class="table-header">
+      <h3>Results</h3>
+      <div class="controls">
+        <label class="search">
+          Search:
+          <input id="resultSearch" placeholder="angler, state..." />
+        </label>
+        <button class="toggle" id="fishToggle" type="button">Show Fish 1–10</button>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th data-sort="rank">Rank</th>
+          <th data-sort="angler">Angler</th>
+          <th data-sort="angler_state">State</th>
+          <th data-sort="big_bass_in">Big Bass</th>
+          <th data-sort="total_length_in">Total</th>
+          <th data-sort="Limit%">Limit %</th>
+          <th data-sort="AOY Points">AOY</th>
+          <th>Fish</th>
+        </tr>
+      </thead>
+      <tbody id="resultsTable"></tbody>
+    </table>
+
+    <p class="note" id="resultsNote"></p>
+  </section>
+</main>
+
+<script src="event.js"></script>
+</body>
+</html>
