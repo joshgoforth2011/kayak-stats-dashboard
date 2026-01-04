@@ -51,3 +51,40 @@ tbody tr:hover{background:#f8fafc}
 .crumbs a{color:#2563eb;text-decoration:none}
 .toggle{border:1px solid #e2e8f0;background:#fff;border-radius:12px;padding:10px 12px;font-weight:800;color:#0f172a;cursor:pointer}
 .toggle:hover{border-color:#cbd5e1}
+
+/* ---------------------------
+   NEW: Home table action links
+   --------------------------- */
+
+.event-link{
+  font-weight:800;
+  color:#0f172a;
+  text-decoration:none;
+}
+.event-link:hover{
+  color:#2563eb;
+  text-decoration:underline;
+}
+
+.details-link{
+  font-weight:900;
+  color:#2563eb;
+  text-decoration:underline;
+}
+.details-link:hover{
+  text-decoration:none;
+}
+
+.subtle-link{
+  margin-left:10px;
+  font-size:12px;
+  font-weight:800;
+  color:#64748b;
+  text-decoration:none;
+  opacity:.8;
+}
+.subtle-link:hover{
+  color:#2563eb;
+  opacity:1;
+  text-decoration:underline
+::contentReference[oaicite:1]{index=1}

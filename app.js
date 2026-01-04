@@ -237,31 +237,35 @@ function renderEventsTable(eventsFiltered, eventStatsById) {
     const totalLen = stats ? fmtInches(stats.winnerTotal) : "—";
     const anglers = stats ? stats.anglerCount : "—";
     const bbLen = stats && stats.bigBass ? fmtInches(stats.bigBass) : "—";
-    const bbAngler = stats && stats.bigBassAngler ? stats.bigBassAngler : "";
+    const bbAngler = stats?.bigBassAngler || "";
 
     const tr = document.createElement("tr");
-    tr.className = "rowlink";
-    tr.style.cursor = "pointer";
 
-    // Row click goes to internal event details
-    tr.addEventListener("click", () => {
-      window.location.href = detailsUrl;
-    });
-
-    // IMPORTANT: stopPropagation on links so they work without triggering row click twice
     tr.innerHTML = `
       <td>
-        <a class="event-link" href="${detailsUrl}" onclick="event.stopPropagation()">${name}</a>
-        ${sourceUrl ? ` <a class="subtle-link" href="${sourceUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Source</a>` : ""}
+        <a class="event-link" href="${detailsUrl}">
+          ${name}
+        </a>
+        ${sourceUrl
+          ? `<a class="subtle-link" href="${sourceUrl}" target="_blank" rel="noopener noreferrer">Source</a>`
+          : ""}
       </td>
       <td>${date}</td>
       <td>${trail}</td>
-      <td>${winner !== "—" ? `<span class="badge badge-win">🏆 ${winner}</span>` : `<span class="badge badge-muted">—</span>`}</td>
+      <td>${winner !== "—"
+        ? `<span class="badge badge-win">🏆 ${winner}</span>`
+        : `<span class="badge badge-muted">—</span>`}
+      </td>
       <td>${totalLen}</td>
-      <td>${bbLen !== "—" ? `<span class="badge badge-bb">🐟 ${bbLen}${bbAngler ? ` • ${bbAngler}` : ""}</span>` : `<span class="badge badge-muted">—</span>`}</td>
+      <td>${bbLen !== "—"
+        ? `<span class="badge badge-bb">🐟 ${bbLen}${bbAngler ? ` • ${bbAngler}` : ""}</span>`
+        : `<span class="badge badge-muted">—</span>`}
+      </td>
       <td>${anglers}</td>
       <td>
-        <a class="details-link" href="${detailsUrl}" onclick="event.stopPropagation()">Click Here for Event Details</a>
+        <a class="details-link" href="${detailsUrl}">
+          Click Here for Event Details
+        </a>
       </td>
     `;
 
@@ -270,6 +274,7 @@ function renderEventsTable(eventsFiltered, eventStatsById) {
 
   note.textContent = `Showing ${sorted.length} events`;
 }
+
 
 // ---------------- Init ----------------
 (async function init() {
