@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Angler Profile • Kayak Stats</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">🧍‍♂️</div>
+    <h1><a href="index.html" style="text-decoration:none;color:#2563eb;">Kayak Stats</a></h1>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="events.html">Events</a>
+    <a class="active" href="anglers.html">Anglers</a>
+    <a href="#" onclick="return false;">Admin</a>
+  </nav>
+</header>
+
+<main class="container">
+  <div class="crumbs">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <a href="anglers.html">Anglers</a>
+    <span>›</span>
+    <span id="crumbAngler">Angler</span>
+  </div>
+
+  <div class="event-head">
+    <div>
+      <h2 class="title-left" id="anglerName">Angler</h2>
+      <p class="subtitle-left" id="anglerMeta">Loading...</p>
+    </div>
+    <div class="event-actions">
+      <a class="btn btn-ghost" href="anglers.html">← Back</a>
+    </div>
+  </div>
+
+  <section class="kpis">
+    <div class="card">
+      <div class="card-top">
+        <span>Events Fished</span>
+        <div class="icon icon-blue">📅</div>
+      </div>
+      <h3 id="kpiEvents">0</h3>
+      <div class="mini" id="kpiSeasons"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span>Avg Finish</span>
+        <div class="icon icon-green">🎯</div>
+      </div>
+      <h3 id="kpiAvgFinish">—</h3>
+      <div class="mini" id="kpiBestWorst"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span>Avg Total</span>
+        <div class="icon icon-purple">📏</div>
+      </div>
+      <h3 id="kpiAvgTotal">—</h3>
+      <div class="mini" id="kpiBestTotal"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span>Best Big Bass</span>
+        <div class="icon icon-gold">🐟</div>
+      </div>
+      <h3 id="kpiBestBB">—</h3>
+      <div class="mini" id="kpiBestBBEvent"></div>
+    </div>
+  </section>
+
+  <section class="table-card">
+    <div class="table-header">
+      <h3>Results</h3>
+      <div class="controls">
+        <label>
+          Season:
+          <select id="seasonFilter"></select>
+        </label>
+        <label>
+          Trail:
+          <select id="trailFilter"></select>
+        </label>
+        <label class="search">
+          Search:
+          <input id="searchBox" placeholder="event, trail, date..." />
+        </label>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th data-sort="event_date">Date</th>
+          <th data-sort="event_name">Event</th>
+          <th data-sort="trail">Trail</th>
+          <th data-sort="rank">Rank</th>
+          <th data-sort="total_length_in">Total</th>
+          <th data-sort="big_bass_in">Big Bass</th>
+          <th data-sort="Limit%">Limit %</th>
+          <th data-sort="AOY Points">AOY</th>
+          <th>Fish (1–5)</th>
+        </tr>
+      </thead>
+      <tbody id="resultsTable"></tbody>
+    </table>
+
+    <p class="note" id="note"></p>
+  </section>
+</main>
+
+<script src="anglerprofile.js"></script>
+</body>
+</html>

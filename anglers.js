@@ -1,5 +1,6 @@
-// Anglers page — computed from Angler_Wide (no extra sheet needed)
-const ANGLER_WIDE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTIsYaYhvyYXo0B57TjF2Ws88bJL5UPJgaXYQgmxmHMQxCQlFvb2oc_KArcXeju0UHnXh8FV7898-9j/pub?gid=620292831&single=true&output=csv";
+// Anglers directory (computed from Angler_Wide)
+const ANGLER_WIDE_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vTIsYaYhvyYXo0B57TjF2Ws88bJL5UPJgaXYQgmxmHMQxCQlFvb2oc_KArcXeju0UHnXh8FV7898-9j/pub?gid=620292831&single=true&output=csv";
 
 const AW = {
   angler: "angler",
@@ -29,8 +30,10 @@ function parseCSV(text) {
       row = []; cur = "";
       continue;
     }
+
     cur += ch;
   }
+
   row.push(cur);
   if (row.some(v => v.trim() !== "")) rows.push(row);
   return rows;
@@ -56,7 +59,7 @@ function fmtInches(n) { return `${n.toFixed(1)}"`; }
   const text = await fetch(ANGLER_WIDE_CSV_URL, { cache: "no-store" }).then(r => r.text());
   const rows = toObjects(text);
 
-  // aggregate by angler
+  // Aggregate by angler
   const map = new Map();
   for (const r of rows) {
     const name = (r[AW.angler] || "").trim();
@@ -103,7 +106,7 @@ function fmtInches(n) { return `${n.toFixed(1)}"`; }
     avgTotal: a.totalCount ? (a.sumTotal / a.totalCount) : 0,
   }));
 
-  // default sort: most events, then best avg finish
+  // Default sort: most events, then best avg finish
   anglers.sort((a, b) => (b.eventCount - a.eventCount) || (a.avgFinish - b.avgFinish));
 
   const tbody = document.getElementById("anglersTable");
@@ -122,11 +125,10 @@ function fmtInches(n) { return `${n.toFixed(1)}"`; }
       const tr = document.createElement("tr");
       tr.className = "rowlink";
       tr.style.cursor = "pointer";
-      tr.title = "Click to view this angler’s event results";
+      tr.title = "Click to open profile";
+
       tr.addEventListener("click", () => {
-        // simple: send to events page filtered by search query
-        // (keeps it minimal without building full angler profile page yet)
-        window.location.href = `events.html#angler=${encodeURIComponent(a.angler)}`;
+        window.location.href = `anglerprofile.html?angler=${encodeURIComponent(a.angler)}`;
       });
 
       tr.innerHTML = `
