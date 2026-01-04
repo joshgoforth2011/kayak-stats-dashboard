@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Events • Kayak Stats</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">🧍‍♂️</div>
+    <h1><a href="index.html" style="text-decoration:none;color:#2563eb;">Kayak Stats</a></h1>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a class="active" href="events.html">Events</a>
+    <a href="anglers.html">Anglers</a>
+    <a href="#" onclick="return false;">Admin</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h2 class="title-left">Events</h2>
+  <p class="subtitle-left">Browse all events • Click a row for details</p>
+
+  <section class="table-card">
+    <div class="table-header">
+      <h3>All Events</h3>
+      <div class="controls">
+        <label>
+          Season:
+          <select id="seasonFilter"></select>
+        </label>
+
+        <label>
+          Trail:
+          <select id="trailFilter"></select>
+        </label>
+
+        <label class="search">
+          Search:
+          <input id="searchBox" placeholder="event, trail, season..." />
+        </label>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Date</th>
+          <th>Trail</th>
+          <th>Winner</th>
+          <th>Total Length</th>
+          <th>Big Bass</th>
+          <th>Anglers</th>
+        </tr>
+      </thead>
+      <tbody id="eventsTable"></tbody>
+    </table>
+
+    <p class="note" id="note"></p>
+  </section>
+</main>
+
+<script src="events.js"></script>
+</body>
+</html>

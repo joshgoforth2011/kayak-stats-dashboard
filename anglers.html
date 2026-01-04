@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Anglers • Kayak Stats</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">🧍‍♂️</div>
+    <h1><a href="index.html" style="text-decoration:none;color:#2563eb;">Kayak Stats</a></h1>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="events.html">Events</a>
+    <a class="active" href="anglers.html">Anglers</a>
+    <a href="#" onclick="return false;">Admin</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h2 class="title-left">Anglers</h2>
+  <p class="subtitle-left">Directory • Click an angler to see their event results (filtered)</p>
+
+  <section class="table-card">
+    <div class="table-header">
+      <h3>Angler Directory</h3>
+      <div class="controls">
+        <label class="search">
+          Search:
+          <input id="searchBox" placeholder="angler, state..." />
+        </label>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Angler</th>
+          <th>State</th>
+          <th>Events</th>
+          <th>Avg Finish</th>
+          <th>Best Finish</th>
+          <th>Avg Total</th>
+          <th>Best Big Bass</th>
+        </tr>
+      </thead>
+      <tbody id="anglersTable"></tbody>
+    </table>
+
+    <p class="note" id="note"></p>
+  </section>
+</main>
+
+<script src="anglers.js"></script>
+</body>
+</html>
