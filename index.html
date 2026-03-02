@@ -11,15 +11,17 @@
 <header class="topbar">
   <div class="brand">
     <div class="logo">🧍‍♂️</div>
-    <h1><a href="index.html" style="text-decoration:none;color:#2563eb;">Kayak Stats</a></h1>
+    <h1><a href="index.html">Kayak Stats</a></h1>
   </div>
 
-  <nav>
-    <a class="active" href="index.html">Home</a>
-    <a href="events.html">Events</a>
-    <a href="anglers.html">Anglers</a>
-    <a href="#" onclick="return false;">Admin</a>
-  </nav>
+  <div class="topbar-right">
+    <div id="freshnessBadge" class="freshness-badge" aria-live="polite">Data freshness: checking…</div>
+    <nav>
+      <a class="active" href="index.html">Home</a>
+      <a href="events.html">Events</a>
+      <a href="anglers.html">Anglers</a>
+    </nav>
+  </div>
 </header>
 
 <main class="container">
@@ -33,7 +35,7 @@
         <div class="icon icon-blue">📅</div>
       </div>
       <h3 id="kpiTotalEvents">0</h3>
-      <div class="mini">Filtered events count</div>
+      <div class="mini">Filtered events count <span id="kpiTrendEvents" class="trend trend-flat">• —</span></div>
     </div>
 
     <div class="card">
@@ -42,7 +44,7 @@
         <div class="icon icon-green">👥</div>
       </div>
       <h3 id="kpiTotalAnglers">0</h3>
-      <div class="mini">Unique anglers (filtered)</div>
+      <div class="mini">Unique anglers (filtered) <span id="kpiTrendAnglers" class="trend trend-flat">• —</span></div>
     </div>
 
     <div class="card">
@@ -51,7 +53,7 @@
         <div class="icon icon-purple">📏</div>
       </div>
       <h3 id="kpiAvgWinnerTotal">—</h3>
-      <div class="mini">From Season Summary (fallback supported)</div>
+      <div class="mini">From Season Summary (fallback supported) <span id="kpiTrendAvgTotal" class="trend trend-flat">• —</span></div>
     </div>
 
     <div class="card">
@@ -60,7 +62,7 @@
         <div class="icon icon-gold">🐟</div>
       </div>
       <h3 id="kpiAvgBigBass">—</h3>
-      <div class="mini">From Season Summary (fallback supported)</div>
+      <div class="mini">From Season Summary (fallback supported) <span id="kpiTrendBigBass" class="trend trend-flat">• —</span></div>
     </div>
   </section>
 
@@ -103,6 +105,19 @@
 
     <p class="note" id="note"></p>
   </section>
+
+
+  <section class="improvements">
+    <div class="improvement-card">
+      <h3>Suggested Next Improvements</h3>
+      <ul>
+        <li><strong>Trend indicators:</strong> Add week-over-week arrows on KPI cards to show movement.</li>
+        <li><strong>Saved filter views:</strong> Let users pin favorite season/trail combinations.</li>
+        <li><strong>Data freshness badge:</strong> Show last sync timestamp in the header for trust.</li>
+      </ul>
+    </div>
+  </section>
+
 </main>
 
 <script src="app.js"></script>
