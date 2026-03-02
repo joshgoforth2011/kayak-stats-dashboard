@@ -122,6 +122,46 @@ function setOptions(selectEl, values, allLabel = "All") {
   });
 }
 
+function formatPct(delta) {
+  return `${Math.abs(delta).toFixed(1)}%`;
+}
+
+function setTrend(elId, delta, context = "vs baseline") {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  if (!Number.isFinite(delta)) {
+    el.className = "trend trend-flat";
+    el.textContent = "• —";
+    return;
+  }
+
+  if (Math.abs(delta) < 0.05) {
+    el.className = "trend trend-flat";
+    el.textContent = `• Flat ${context}`;
+    return;
+  }
+
+  const isUp = delta > 0;
+  el.className = `trend ${isUp ? "trend-up" : "trend-down"}`;
+  el.textContent = `${isUp ? "▲" : "▼"} ${formatPct(delta)} ${context}`;
+}
+
+function latestEventDateLabel(eventsRows) {
+  const latest = [...eventsRows]
+    .map(e => parseDateLoose(e[EVT.event_date]))
+    .sort((a, b) => b - a)[0];
+  if (!latest || !Number.isFinite(latest.getTime()) || latest.getTime() === 0) return "Unknown";
+  return latest.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+}
+
+function updateFreshnessBadge(eventsRows) {
+  const badge = document.getElementById("freshnessBadge");
+  if (!badge) return;
+  const now = new Date();
+  badge.textContent = `Data freshness: synced ${now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })} • latest event ${latestEventDateLabel(eventsRows)}`;
+}
+
+
 // --------------- Event stats (winner / big bass / anglers) ---------------
 function buildEventStats(anglerWideRows) {
   const map = new Map();
@@ -186,7 +226,7 @@ function buildEventStats(anglerWideRows) {
 }
 
 // ---------------- Render: KPIs ----------------
-function renderKPIs(eventsFiltered, anglerWideFiltered, eventStatsById, seasonSummaryFiltered, seasonSummaryAll) {
+function renderKPIs(eventsFiltered, eventsAll, anglerWideFiltered, anglerWideAll, eventStatsById, seasonSummaryFiltered, seasonSummaryAll) {
   const totalEvents = eventsFiltered.length;
   const totalAnglers = unique(anglerWideFiltered.map(r => r[AW.angler])).length;
 
@@ -199,7 +239,6 @@ function renderKPIs(eventsFiltered, anglerWideFiltered, eventStatsById, seasonSu
     avgTotal = base.reduce((s, d) => s + num(d[SS.season_total]), 0) / base.length;
     avgBigBass = base.reduce((s, d) => s + num(d[SS.best_big_bass]), 0) / base.length;
   } else {
-    // Fallback: avg winner total across filtered events + avg big bass across filtered rows
     const winnerTotals = [...eventStatsById.values()].map(s => s.winnerTotal).filter(v => v > 0);
     avgTotal = winnerTotals.length ? winnerTotals.reduce((a, b) => a + b, 0) / winnerTotals.length : 0;
 
@@ -207,10 +246,25 @@ function renderKPIs(eventsFiltered, anglerWideFiltered, eventStatsById, seasonSu
     avgBigBass = bb.length ? bb.reduce((a, b) => a + b, 0) / bb.length : 0;
   }
 
+  const allEventsCount = eventsAll.length || 1;
+  const allAnglersCount = unique(anglerWideAll.map(r => r[AW.angler])).length || 1;
+  const allSummaryBase = seasonSummaryAll?.length ? seasonSummaryAll : [];
+  const allAvgTotal = allSummaryBase.length
+    ? allSummaryBase.reduce((s, d) => s + num(d[SS.season_total]), 0) / allSummaryBase.length
+    : avgTotal;
+  const allAvgBigBass = allSummaryBase.length
+    ? allSummaryBase.reduce((s, d) => s + num(d[SS.best_big_bass]), 0) / allSummaryBase.length
+    : avgBigBass;
+
   document.getElementById("kpiTotalEvents").textContent = totalEvents;
   document.getElementById("kpiTotalAnglers").textContent = totalAnglers;
   document.getElementById("kpiAvgWinnerTotal").textContent = avgTotal ? fmtInches(avgTotal) : "—";
   document.getElementById("kpiAvgBigBass").textContent = avgBigBass ? fmtInches(avgBigBass) : "—";
+
+  setTrend("kpiTrendEvents", ((totalEvents - allEventsCount) / allEventsCount) * 100, "vs all events");
+  setTrend("kpiTrendAnglers", ((totalAnglers - allAnglersCount) / allAnglersCount) * 100, "vs all anglers");
+  setTrend("kpiTrendAvgTotal", allAvgTotal ? ((avgTotal - allAvgTotal) / allAvgTotal) * 100 : NaN, "vs all seasons");
+  setTrend("kpiTrendBigBass", allAvgBigBass ? ((avgBigBass - allAvgBigBass) / allAvgBigBass) * 100 : NaN, "vs all seasons");
 }
 
 // ---------------- Render: Events table ----------------
@@ -324,7 +378,7 @@ function renderEventsTable(eventsFiltered, eventStatsById) {
 
     const eventStatsById = buildEventStats(anglerWideFiltered);
 
-    renderKPIs(eventsFiltered, anglerWideFiltered, eventStatsById, seasonSummaryFiltered, seasonSummaryAll);
+    renderKPIs(eventsFiltered, eventsAll, anglerWideFiltered, anglerWideAll, eventStatsById, seasonSummaryFiltered, seasonSummaryAll);
     renderEventsTable(eventsFiltered, eventStatsById);
   }
 
@@ -332,5 +386,6 @@ function renderEventsTable(eventsFiltered, eventStatsById) {
   trailFilter.addEventListener("change", apply);
   searchBox.addEventListener("input", apply);
 
+  updateFreshnessBadge(eventsAll);
   apply();
 })();
